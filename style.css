@@ -1,0 +1,32 @@
+*,
+*::before,
+*::after {
+	box-sizing: content-box;
+	padding: 0;
+	margin: 0;
+}
+
+h1 {
+     justify-content: center; /* Centrer horizontalement */
+     align-items: center; /* Centrer verticalement */
+}
+
+#container {
+	display: flex;
+     flex-direction: column;
+     justify-content: center; /* Centrer horizontalement */
+     align-items: center; /* Centrer verticalement */
+     border : 1px solid black;
+     max-width: 20rem;
+
+}
+
+
+button {
+     margin-top: 0;
+}
+
+li {
+	list-style: none;
+	display: flex;
+}
