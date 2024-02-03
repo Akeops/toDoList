@@ -1,3 +1,27 @@
+const tacheObjet = {
+     taches: [
+          { id: 0, nameTache: "Faire les courses", date: "" },
+          { id: 1, nameTache: "Travailler 1 heure", date: "" },
+          { id: 2, nameTache: "Faire du sport", date: "" },
+          { id: 3, nameTache: "Marcher", date: "" },
+     ],
+     get mesTaches() {
+          return tacheObjet;
+     },
+
+     uneTache(id, name, date) {
+          tacheObjet.taches.push({
+               id,
+               name,
+               date
+          })
+     }	
+}   
+     
+console.log(tacheObjet.taches);
+tacheObjet.uneTache(4, "Retourner à Bordeaux", "04/02/2024");
+console.log(tacheObjet.taches);
+
 const div1 = document.querySelector("#div1");
 const div2 = document.querySelector("#div2");
 const tache = document.querySelector("#tache");
