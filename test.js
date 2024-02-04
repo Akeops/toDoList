@@ -16,11 +16,13 @@ const tacheObjet = {
 		});
 	},
 
-	supprimerTache(i) {
-		delete this.taches[i];
-	},
+	supprimerTache(key) {
+		delete this.taches[key]["importance"],
+		delete this.taches[key]["nameTache"],
+		delete this.taches[key]["date"]
+	}
 };
 
 
-tacheObjet.supprimerTache(2)
-console.log(tacheObjet.taches)
+tacheObjet.supprimerTache(1)
+console.log(tacheObjet.mesTaches[0]);
