@@ -26,8 +26,9 @@ const tacheObjet = {
 
 	supprimerTache(key) {
 		if (key >= 0 && key < this.taches.length) {
+			// Il vaut mieux utiliser une fonction native qui supprime directement dans le tableau plutôt que delete
 			this.taches.splice(key, 1);
-			// Vous pouvez également mettre à jour l'interface ici si nécessaire
+			
 			console.log("Tâche supprimée avec succès.");
 		} else {
 			console.error("Indice invalide. La tâche n'a pas été supprimée.");
