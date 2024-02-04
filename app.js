@@ -6,7 +6,6 @@ const tache = document.querySelector("#tache");
 const buttonAjouter = document.querySelector("#buttonAjouter");
 const ul = document.querySelector("#maListe");
 
-
 // Les objets
 
 const tacheObjet = {
@@ -26,29 +25,38 @@ const tacheObjet = {
 			date,
 		});
 	},
+
+	supprimerTache(index) {
+		delete this.taches[index];
+	},
 };
 
-// Affichage de toutes les tâches 
+// Affichage de toutes les tâches
 
 let resultatMethodeMesTaches = tacheObjet.mesTaches;
 for (let i = 0; i < resultatMethodeMesTaches.length; i++) {
-     const li = document.createElement("li");
-     const pImportance = document.createElement("p");
-     const pName = document.createElement("p");
-     const pDate = document.createElement("p");
-     const buttonSupprimer = document.createElement("button")
-     buttonSupprimer.textContent = "Supprimer";
-     buttonSupprimer.className = "suppr";
-     pImportance.textContent = resultatMethodeMesTaches[i]["importance"];
-     pName.textContent = resultatMethodeMesTaches[i]["nameTache"];
-     pDate.textContent = resultatMethodeMesTaches[i]["date"];
-     ul.append(li);
-     li.append(pImportance);
-     li.append(pName);
-     li.append(pDate);
-     li.append(buttonSupprimer);
+	const li = document.createElement("li");
+	const pIndex = document.createElement("p");
+	const pImportance = document.createElement("p");
+	const pName = document.createElement("p");
+	const pDate = document.createElement("p");
+	const buttonSupprimer = document.createElement("button");
+	buttonSupprimer.textContent = "Supprimer";
+	buttonSupprimer.className = "suppr";
+	buttonSupprimer.dataset.index = i;
+	pIndex.textContent = i;
+	pImportance.textContent = resultatMethodeMesTaches[i]["importance"];
+	pName.textContent = resultatMethodeMesTaches[i]["nameTache"];
+	pDate.textContent = resultatMethodeMesTaches[i]["date"];
+	ul.append(li);
+	li.append(pIndex);
+	li.append(pImportance);
+	li.append(pName);
+	li.append(pDate);
+	li.append(buttonSupprimer);
+
+	buttonSupprimer.addEventListener("click", (e) => {
+		e.target.tacheObjet.supprimerTache(i);
+
+	});
 }
-
-
-buttonAjouter.addEventListener("click", ajouterUneTache);
-
