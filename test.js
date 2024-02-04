@@ -16,13 +16,19 @@ const tacheObjet = {
 		});
 	},
 
-	supprimerTache(key) {
-		delete this.taches[key]["importance"],
-		delete this.taches[key]["nameTache"],
-		delete this.taches[key]["date"]
+     supprimerTache(key) {
+          if (key > 0 && key < this.taches.length) {
+               this.taches.splice(key, 1);
+			console.log("La tâche a ien été suprrimé");
+          } else {
+               console.log("L'index choisi n'a pas été trouvé")
+          }
+          
 	}
 };
 
 
-tacheObjet.supprimerTache(1)
-console.log(tacheObjet.mesTaches[0]);
+
+console.log(tacheObjet.taches)
+tacheObjet.supprimerTache(1);
+console.log(tacheObjet.taches);

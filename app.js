@@ -12,10 +12,6 @@ const tacheObjet = {
 		{ importance: 3, nameTache: "Marcher", date: "" },
 	],
 
-	get mesTaches() {
-		return this.taches;
-	},
-
 	ajoutTache(importance, nameTache, date) {
 		this.taches.push({
 			importance,
@@ -27,8 +23,7 @@ const tacheObjet = {
 	supprimerTache(key) {
 		if (key >= 0 && key < this.taches.length) {
 			// Il vaut mieux utiliser une fonction native qui supprime directement dans le tableau plutôt que delete
-			this.taches.splice(key, 1);
-			
+			this.taches.splice(key, 1);	
 			console.log("Tâche supprimée avec succès.");
 		} else {
 			console.error("Indice invalide. La tâche n'a pas été supprimée.");
@@ -71,5 +66,4 @@ function afficherTaches() {
 	}
 }
 
-// Affiche les tâches au chargement initial
 afficherTaches();
