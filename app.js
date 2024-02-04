@@ -43,7 +43,6 @@ for (let i = 0; i < resultatMethodeMesTaches.length; i++) {
 	const buttonSupprimer = document.createElement("button");
 	buttonSupprimer.textContent = "Supprimer";
 	buttonSupprimer.className = "suppr";
-	buttonSupprimer.dataset.index = i;
 	pIndex.textContent = i;
 	pImportance.textContent = resultatMethodeMesTaches[i]["importance"];
 	pName.textContent = resultatMethodeMesTaches[i]["nameTache"];
