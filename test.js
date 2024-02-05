@@ -1,34 +1,27 @@
-const tacheObjet = {
-	taches: [
-		{ importance: 1, nameTache: "Faire les courses", date: "" },
-		{ importance: 1, nameTache: "Travailler 1 heure", date: "" },
-		{ importance: 2, nameTache: "Faire du sport", date: "" },
-		{ importance: 3, nameTache: "Marcher", date: "" },
-	],
-	get mesTaches() {
-		return tacheObjet.taches;
-	},
-	ajoutTache(importance, name, date) {
-		tacheObjet.taches.push({
-			importance,
-			name,
-			date,
-		});
-	},
 
-     supprimerTache(key) {
-          if (key > 0 && key < this.taches.length) {
-               this.taches.splice(key, 1);
-			console.log("La tâche a ien été suprrimé");
-          } else {
-               console.log("L'index choisi n'a pas été trouvé")
-          }
-          
+
+
+function getDate() {
+	const date = new Date();
+  	const day = date.getDay();
+  	const month = date.getMonth();
+  	const year = date.getFullYear();
+	try {
+		if (day < 10 || month < 10) {
+			const fullYear = `0${day}/0${month}/${year}`;
+			return fullYear;
+		} else if (day < 10) {
+			const fullYear = `0${day}/${month}/${year}`;
+			return fullYear;
+		} else if (month > 9) {
+			const fullYear = `${day}/0${month}/${year}`;
+			return fullYear;
+		}
+	} catch (e) {
+		return e;
 	}
-};
+	
+}
 
+console.log(getDate())
 
-
-console.log(tacheObjet.taches)
-tacheObjet.supprimerTache(1);
-console.log(tacheObjet.taches);

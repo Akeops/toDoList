@@ -12,8 +12,24 @@
     <div id="container">
       <h1>To do list</h1>
       <div id="div1">
-        <input type="text" id="tache" name="tache" placeholder="Aller faire les courses"/><br>
+        <form id="monForm" action="">
+          <label name="importance" for="importance">Importance de la tâche:</label>
+          <select id="importance" name="importance">
+            <option id="importance1" value="1">1</option>
+            <option id="importance2" value="2">2</option>
+            <option id="importance3" value="3">3</option>
+            <option id="importance4" value="4">4</option>
+            <option id="importance5" value="5">5</option>
+          </select>
+          <br>
+          <label name="tache" for="name">Tâche:</label>
+          <input type="text" id="tache" name="tache" placeholder="Aller faire les courses"/><br>
+
+          <input type="hidden" id="dateEnvoi" name="dateEnvoi">
+        <br>
         <button id="buttonAjouter">Ajouter une tâche</button>
+
+      </form>
       </div>
       
     </div>
