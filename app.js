@@ -3,44 +3,27 @@ const div2 = document.querySelector("#div2");
 const tache = document.querySelector("#tache");
 const buttonAjouter = document.querySelector("#buttonAjouter");
 const ul = document.querySelector("#maListe");
-document.querySelector("#monForm").addEventListener("submit", (event) => {
-	event.preventDefault();
-	if (document.querySelector("#tache").value) {
-		let importance = document.querySelector("#importance").value;
-    	let nameTache = document.querySelector("#tache").value;
-		let date = getDate();
-		
-		tacheObjet.ajoutTache(importance, nameTache, date);
-	} else {
-		console.log("Vous n'avez rien mit.")
-	}
-	
 
-	
-
-	afficherTaches();
-
-})
 
 function getDate() {
-  const date = new Date();
-  const day = date.getDay();
-  const month = date.getMonth();
-  const year = date.getFullYear();
-  try {
-    if (day < 10 || month < 10) {
-      const fullYear = `0${day}/0${month}/${year}`;
-      return fullYear;
-    } else if (day < 10) {
-      const fullYear = `0${day}/${month}/${year}`;
-      return fullYear;
-    } else if (month > 9) {
-      const fullYear = `${day}/0${month}/${year}`;
-      return fullYear;
+    const date = new Date();
+    const day = date.getDay();
+    const month = date.getMonth();
+    const year = date.getFullYear();
+    try {
+        if (day < 10 || month < 10) {
+            const fullYear = `0${day}/0${month}/${year}`;
+            return fullYear;
+        } else if (day < 10) {
+            const fullYear = `0${day}/${month}/${year}`;
+            return fullYear;
+        } else if (month > 9) {
+            const fullYear = `${day}/0${month}/${year}`;
+            return fullYear;
+        }
+    } catch (e) {
+        return e;
     }
-  } catch (e) {
-    return e;
-  }
 }
 
 const tacheObjet = {
@@ -100,7 +83,6 @@ function afficherTaches() {
 			tacheObjet.supprimerTache(currentKey);
 			afficherTaches(); // Met à jour l'interface après la suppression
 		});
-
 		console.log(tacheObjet.taches[currentKey]);
 	}
 }
