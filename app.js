@@ -14,11 +14,8 @@ class TacheManager {
   }
 
   ajoutTache(importance, nomTache, date) {
-    this.taches.push({
-      	importance,
-		nomTache,
-	  	date
-    });
+    const tache = {importance, nomTache, date}
+    this.taches.push(tache);
   }
 
   supprimerTache(key) {
@@ -53,10 +50,10 @@ function getDate() {
   }
 }
 const tacheManager = new TacheManager();
-tacheManager.ajoutTache(5, "Aller bosser", "");
-tacheManager.ajoutTache(4, "Faire du sport pendant 1h", "");
-tacheManager.ajoutTache(1, "Marcher 10 000 pas", "");
-tacheManager.ajoutTache(2, "Prendre la vitamine D", "");
+tacheManager.ajoutTache(5, "Aller bosser", getDate());
+tacheManager.ajoutTache(4, "Faire du sport pendant 1h", getDate());
+tacheManager.ajoutTache(1, "Marcher 10 000 pas", getDate());
+tacheManager.ajoutTache(2, "Prendre la vitamine D", getDate());
 
 
 
@@ -78,8 +75,8 @@ function afficherTaches() {
     li.append(buttonSupprimer);
     li.append(buttonArchiver);
 
-    buttonSupprimer.addEventListener("click", function () {
-      tacheObjet.supprimerTache(currentKey);
+    buttonSupprimer.addEventListener("click", () => {
+      tacheManager.supprimerTache(tache);
       afficherTaches(); // Met à jour l'interface après la suppression
     });
   });
