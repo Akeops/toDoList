@@ -4,87 +4,85 @@ const tache = document.querySelector("#tache");
 const buttonAjouter = document.querySelector("#buttonAjouter");
 const ul = document.querySelector("#maListe");
 
+class TacheManager {
+  constructor(taches) {
+    this._taches = [];
+  }
+
+  get taches() {
+    return this._taches;
+  }
+
+  ajoutTache(importance, nomTache, date) {
+    this.taches.push({
+      	importance,
+		nomTache,
+	  	date
+    });
+  }
+
+  supprimerTache(key) {
+    if (key >= 0 && key < this.taches.length) {
+      // Il vaut mieux utiliser une fonction native qui supprime directement dans le tableau plutôt que delete
+      this.taches.splice(key, 1);
+      console.log("Tâche supprimée avec succès.");
+    } else {
+      console.error("Indice invalide. La tâche n'a pas été supprimée.");
+    }
+  }
+}
 
 function getDate() {
-    const date = new Date();
-    const day = date.getDay();
-    const month = date.getMonth();
-    const year = date.getFullYear();
-    try {
-        if (day < 10 || month < 10) {
-            const fullYear = `0${day}/0${month}/${year}`;
-            return fullYear;
-        } else if (day < 10) {
-            const fullYear = `0${day}/${month}/${year}`;
-            return fullYear;
-        } else if (month > 9) {
-            const fullYear = `${day}/0${month}/${year}`;
-            return fullYear;
-        }
-    } catch (e) {
-        return e;
+  const date = new Date();
+  const day = date.getDay();
+  const month = date.getMonth();
+  const year = date.getFullYear();
+  try {
+    if (day < 10 || month < 10) {
+      const fullYear = `0${day}/0${month}/${year}`;
+      return fullYear;
+    } else if (day < 10) {
+      const fullYear = `0${day}/${month}/${year}`;
+      return fullYear;
+    } else if (month > 9) {
+      const fullYear = `${day}/0${month}/${year}`;
+      return fullYear;
     }
+  } catch (e) {
+    return e;
+  }
 }
+const tacheManager = new TacheManager();
+tacheManager.ajoutTache(5, "Aller bosser", "");
+tacheManager.ajoutTache(4, "Faire du sport pendant 1h", "");
+tacheManager.ajoutTache(1, "Marcher 10 000 pas", "");
+tacheManager.ajoutTache(2, "Prendre la vitamine D", "");
 
-const tacheObjet = {
-	taches: [
-		{ importance: 1, nameTache: "Faire les courses", date: "" },
-		{ importance: 1, nameTache: "Travailler 1 heure", date: "" },
-		{ importance: 2, nameTache: "Faire du sport", date: "" },
-		{ importance: 3, nameTache: "Marcher", date: "" },
-	],
 
-	ajoutTache(importance, nameTache, date) {
-		this.taches.push({
-			importance,
-			nameTache,
-			date,
-		});
-	},
-
-	supprimerTache(key) {
-		if (key >= 0 && key < this.taches.length) {
-			// Il vaut mieux utiliser une fonction native qui supprime directement dans le tableau plutôt que delete
-			this.taches.splice(key, 1);	
-			console.log("Tâche supprimée avec succès.");
-		} else {
-			console.error("Indice invalide. La tâche n'a pas été supprimée.");
-		}
-	}
-};
 
 function afficherTaches() {
-	ul.innerHTML = ""; // Efface le contenu de la liste pour éviter les doublons
-	for (let key in tacheObjet.taches) {
-		const li = document.createElement("li");
-		const pIndex = document.createElement("p");
-		const pImportance = document.createElement("p");
-		const pName = document.createElement("p");
-		const pDate = document.createElement("p");
-		const buttonSupprimer = document.createElement("button");
+  tacheManager.taches.forEach((tache) => {
+    // ul.innerHTML = ""; // Efface le contenu de la liste pour éviter les doublons
+    const li = document.createElement("li");
+    const buttonSupprimer = document.createElement("button");
+    const buttonArchiver = document.createElement("button");
 
-		const currentKey = parseInt(key); // Convertit la clé en nombre entier
+    buttonSupprimer.textContent = "Supprimer";
+    buttonSupprimer.className = "suppr";
+    buttonArchiver.textContent = "Archiver";
+    buttonArchiver.className = "archiver";
+    const tacheDetail = `${tache.importance}  ${tache.nomTache}  ${tache.date}`;
+    console.log(tacheDetail);
+	  li.innerHTML = tacheDetail;
+    ul.append(li);
+    li.append(buttonSupprimer);
+    li.append(buttonArchiver);
 
-		buttonSupprimer.textContent = "Supprimer";
-		buttonSupprimer.className = "suppr";
-		pIndex.textContent = currentKey;
-		pImportance.textContent = tacheObjet.taches[currentKey]["importance"];
-		pName.textContent = tacheObjet.taches[currentKey]["nameTache"];
-		pDate.textContent = tacheObjet.taches[currentKey]["date"];
-
-		ul.append(li);
-		li.append(pIndex);
-		li.append(pImportance);
-		li.append(pName);
-		li.append(pDate);
-		li.append(buttonSupprimer);
-
-		buttonSupprimer.addEventListener("click", function () {
-			tacheObjet.supprimerTache(currentKey);
-			afficherTaches(); // Met à jour l'interface après la suppression
-		});
-		console.log(tacheObjet.taches[currentKey]);
-	}
+    buttonSupprimer.addEventListener("click", function () {
+      tacheObjet.supprimerTache(currentKey);
+      afficherTaches(); // Met à jour l'interface après la suppression
+    });
+  });
 }
-console.log(getDate())
+
 afficherTaches();
