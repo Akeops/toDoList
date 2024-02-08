@@ -4,6 +4,8 @@ const tache = document.querySelector("#tache");
 const buttonAjouter = document.querySelector("#buttonAjouter");
 const ul = document.querySelector("#maListe");
 
+
+
 class TacheManager {
   constructor(taches) {
     this._taches = [];
@@ -20,7 +22,6 @@ class TacheManager {
 
   supprimerTache(key) {
     if (key >= 0 && key < this.taches.length) {
-      // Il vaut mieux utiliser une fonction native qui supprime directement dans le tableau plutôt que delete
       this.taches.splice(key, 1);
       console.log("Tâche supprimée avec succès.");
     } else {
@@ -49,17 +50,17 @@ function getDate() {
     return e;
   }
 }
+
+
+
 const tacheManager = new TacheManager();
-tacheManager.ajoutTache(5, "Aller bosser", getDate());
-tacheManager.ajoutTache(4, "Faire du sport pendant 1h", getDate());
-tacheManager.ajoutTache(1, "Marcher 10 000 pas", getDate());
-tacheManager.ajoutTache(2, "Prendre la vitamine D", getDate());
-
-
+// tacheManager.ajoutTache(5, "Aller bosser", getDate());
+// tacheManager.ajoutTache(4, "Faire du sport pendant 1h", getDate());
+// tacheManager.ajoutTache(1, "Marcher 10 000 pas", getDate());
+// tacheManager.ajoutTache(2, "Prendre la vitamine D", getDate());
 
 function afficherTaches() {
   tacheManager.taches.forEach((tache) => {
-    // ul.innerHTML = ""; // Efface le contenu de la liste pour éviter les doublons
     const li = document.createElement("li");
     const buttonSupprimer = document.createElement("button");
     const buttonArchiver = document.createElement("button");
@@ -75,11 +76,20 @@ function afficherTaches() {
     li.append(buttonSupprimer);
     li.append(buttonArchiver);
 
+    buttonAjouter.addEventListener("click", () => {
+      const valeurImportance = document.querySelector("#importance").value;
+      const valeurNomTache = document.querySelector("#tache").value;
+      tacheManager.ajoutTache(valeurImportance, valeurNomTache, getDate());
+    });
+
     buttonSupprimer.addEventListener("click", () => {
-      tacheManager.supprimerTache(tache);
-      afficherTaches(); // Met à jour l'interface après la suppression
+      const index = tacheManager.taches.indexOf(tache);
+      if (index !== -1) {
+        tacheManager.supprimerTache(index);
+        li.remove(); 
+      }
     });
   });
 }
-
+console.log(tacheManager.taches)
 afficherTaches();
