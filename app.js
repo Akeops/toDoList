@@ -3,6 +3,7 @@ const div2 = document.querySelector("#div2");
 const tache = document.querySelector("#tache");
 const buttonAjouter = document.querySelector("#buttonAjouter");
 const ul = document.querySelector("#maListe");
+const ulArchive = document.querySelector("#maListeArchive")
 
 class TacheManager {
   constructor(taches, tachesArchivees) {
@@ -10,7 +11,6 @@ class TacheManager {
     this._tachesArchivees = [];
   }
   
-
 	get taches() {
 		return this._taches;
   }
@@ -21,13 +21,12 @@ class TacheManager {
   
   archiverTache(key) {
     if (key >= 0 && key < this.taches.length) {
-      
       const tacheArchivees = this.taches.splice(key, 1)[0];
       this.tachesArchivees.push(tacheArchivees);
-      
 		  console.log("Tâche archivee avec succès.");
-	  } else {
-		  console.error("Indice invalide. La tâche n'a pas été supprimée.");
+    } else {
+      console.error("Indice invalide. La tâche n'a pas été archivée.");
+      console.log(tacheArchivees)
     }
   }
 
@@ -82,9 +81,9 @@ document.querySelector("#monForm").addEventListener("submit", (event) => {
 const tacheManager = new TacheManager();
 
 function afficherTaches() {
-  ul.innerHTML = ""; // Effacer la liste pour éviter les doublons
+  ul.textContent = ""; // Effacer la liste pour éviter les doublons
 
-  tacheManager.taches.forEach((tache, index) => {
+  tacheManager.taches.forEach(tache => {
     const li = document.createElement("li");
     const buttonSupprimer = document.createElement("button");
     const buttonArchiver = document.createElement("button");
@@ -94,7 +93,6 @@ function afficherTaches() {
     buttonArchiver.textContent = "Archiver";
     buttonArchiver.className = "archiver";
     const tacheDetail = `${tache.importance}  ${tache.nomTache}  ${tache.date}`;
-    console.log(tacheManager.taches);
     li.textContent = tacheDetail;
     ul.append(li);
     li.append(buttonSupprimer);
@@ -109,18 +107,26 @@ function afficherTaches() {
     });
     
     buttonArchiver.addEventListener("click", () => {
+      const index = tacheManager.taches.indexOf(tache);
       tacheManager.archiverTache(index);
+      li.remove();
+      afficherTachesArchives();
     });
    
   })
 }
 
-function afficheTachesArchivves() {
+function afficherTachesArchives() {
+  ulArchive.textContent = "";
   tacheManager.tachesArchivees.forEach(tache => {
+    const liArchive = document.createElement("li");
+    const tacheDetail = `${tache.importance} ${tache.nomTache} ${tache.date}`;
+    liArchive.textContent = tacheDetail;
+    ulArchive.append(liArchive);
     
-  })
+  });
 }
 
-
 afficherTaches();
-tacheManager.tachesArchivees
+
+

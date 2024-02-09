@@ -13,15 +13,13 @@ class TacheManager {
 	}
 
 	archiverTache(key) {
-    if (key >= 0 && key < this.taches.length) {
-      
-      this.tachesArchivees.push(key.importance, key.nomTache, key.date);
-      console.log(this.taches.key)
-			this.taches.splice(key, 1);
-
-			console.log("Tâche supprimée avec succès.");
+		if (key >= 0 && key < this.taches.length) {
+			const tacheArchivees = this.taches.splice(key, 1)[0];
+			this._tachesArchivees.push(tacheArchivees);
+			console.log("Tâche archivee avec succès.");
 		} else {
-			console.error("Indice invalide. La tâche n'a pas été supprimée.");
+			console.error("Indice invalide. La tâche n'a pas été archivée.");
+			console.log(tacheArchivees);
 		}
 	}
 
@@ -54,7 +52,6 @@ function getDate() {
 
 const tacheManager = new TacheManager()
 const unTest = tacheManager.ajoutTache(1, "Allo", getDate());
-//tacheManager.ajoutTache(1, "Allo", getDate())
 tacheManager.archiverTache(0);
 console.log(tacheManager.taches)
 
