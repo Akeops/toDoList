@@ -85,26 +85,15 @@ function afficherTaches() {
 
   tacheManager.taches.forEach(tache => {
     const li = document.createElement("li");
-    const buttonSupprimer = document.createElement("button");
     const buttonArchiver = document.createElement("button");
-
-    buttonSupprimer.textContent = "Supprimer";
-    buttonSupprimer.className = "suppr";
+    const buttonSupprimer = document.createElement("button");
+    
     buttonArchiver.textContent = "Archiver";
     buttonArchiver.className = "archiver";
     const tacheDetail = `${tache.importance}  ${tache.nomTache}  ${tache.date}`;
     li.textContent = tacheDetail;
     ul.append(li);
-    li.append(buttonSupprimer);
     li.append(buttonArchiver);
-
-    buttonSupprimer.addEventListener("click", () => {
-      const index = tacheManager.taches.indexOf(tache);
-      if (index !== -1) {
-        tacheManager.supprimerTache(index);
-        li.remove();
-      }
-    });
     
     buttonArchiver.addEventListener("click", () => {
       const index = tacheManager.taches.indexOf(tache);
@@ -120,9 +109,22 @@ function afficherTachesArchives() {
   ulArchive.textContent = "";
   tacheManager.tachesArchivees.forEach(tache => {
     const liArchive = document.createElement("li");
+    const buttonSupprimer = document.createElement("button");
+
     const tacheDetail = `${tache.importance} ${tache.nomTache} ${tache.date}`;
+    buttonSupprimer.textContent = "Supprimer";
+    buttonSupprimer.className = "suppr";
     liArchive.textContent = tacheDetail;
     ulArchive.append(liArchive);
+    liArchive.append(buttonSupprimer);
+
+    buttonSupprimer.addEventListener("click", () => {
+      const index = tacheManager.tachesArchivees.indexOf(tache);
+      if (index !== -1) {
+        tacheManager.supprimerTache(index);
+        liArchive.remove();
+      }
+    });
     
   });
 }
